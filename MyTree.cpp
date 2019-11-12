@@ -104,8 +104,8 @@ BinaryNode* MyTree::max(BinaryNode* curr, BinaryNode* largestNode) const{
 
       largestNode = curr;
     }
-    max(curr->lchild, largestNode);
-    max(curr->rchild,largestNode);
+    largestNode = max(curr->lchild, largestNode);
+    largestNode = max(curr->rchild,largestNode);
   }
 
   return largestNode;

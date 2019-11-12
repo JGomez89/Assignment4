@@ -5,9 +5,8 @@ using namespace std;
 
 //constructor
 MyTree::MyTree(){
-
-  root = nullptr;
-  height = 0;
+  nextLeaf = new BinaryNode;
+  root = nextLeaf;
 }
 
 //deconstructor
@@ -30,7 +29,7 @@ void MyTree::deleteTree(BinaryNode* curr){
 //justin
 void MyTree::insert(int userInt, string userString){
   BinaryNode* newNode = new BinaryNode(userString,userInt);
-  if(root == nullptr){
+  if(root == nextLeaf){
     root = newNode;
     root->lchild = nextLeaf;
     nextLeaf->parent = root;
@@ -71,12 +70,11 @@ void MyTree::insert(int userInt, string userString){
       }
     }
   }
-  ++height;
 }
 
 
 
-//justin 
+//justin
 void MyTree::PrintPreOrder(BinaryNode* currPtr, int depth) const{
   if(currPtr != nullptr){
     if(depth != 0){
@@ -155,7 +153,7 @@ void MyTree::treeToBST(BinaryNode* curr, vector<BinaryNode*> myVector, int index
     ++index;
 
     treeToBST(curr->rchild, myVector, index);
-  } 
+  }
 }
 
 

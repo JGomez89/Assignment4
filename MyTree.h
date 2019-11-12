@@ -9,7 +9,8 @@ class MyTree;
 
 class BinaryNode {
 public:
-  BinaryNode(string s, int m):myString(s),myInt(m){};
+  BinaryNode():myString("Null"),myInt(-1),lchild(nullptr),rchild(nullptr),parent(nullptr){};
+  BinaryNode(string s, int m):myString(s),myInt(m),lchild(nullptr),rchild(nullptr),parent(nullptr){};
   ~BinaryNode() {};
   int getInt() const {return myInt;};
   string getString() const {return myString;};
@@ -31,14 +32,14 @@ public:
   // Insert new node into first available position (to keep the tree almost complete).
   void insert (int x ,string s);
 
-  //Output all strings in pre-order 
+  //Output all strings in pre-order
   //all the strings will be print in one line separated by spaces
   void preorder() const;
 
   //Returns a pointer to the node with maximum myInt
   BinaryNode *findMax() const;
 
-  // Converts the binary tree into a binary search tree (BST) with respect to myInt. 
+  // Converts the binary tree into a binary search tree (BST) with respect to myInt.
   // That is, move around node values (myString and myInt) to satisfy the BST property.
   void makeBST();
 
@@ -56,6 +57,5 @@ public:
 
 private:
   BinaryNode *root;
-  int height;
+  BinaryNode *nextLeaf;
 };
-

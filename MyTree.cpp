@@ -7,55 +7,65 @@ using namespace std;
 MyTree::MyTree(){
 
   root = nullptr;
+  height = 0;
 }
 
 //deconstructor
 MyTree::~MyTree(){
-  
 
+  deleteTree(root);
+}
+
+void MyTree::deleteTree(BinaryNode* curr){
+  if(curr != nullptr){
+
+    deleteTree(curr->lchild);
+    deleteTree(curr->rchild);
+    delete curr;
+  }
 
 }
 
-/*
+
 //justin
-void MyTree::Insert(int userInt, string userString){
-  BinaryNode* newNode = new BinaryNode(userInt,userString);
+void MyTree::insert(int userInt, string userString){
+  BinaryNode* newNode = new BinaryNode(userString,userInt);
   if(root == nullptr){
     root = newNode;
-    root->left = nextLeaf;
+    root->lchild = nextLeaf;
     nextLeaf->parent = root;
   }
   else{
-    if(nextLeaf->parent->left == nextLeaf){
-      nextLeaf->parent->left = newNode;
+    if(nextLeaf->parent->lchild == nextLeaf){
+      nextLeaf->parent->lchild = newNode;
     }
     else{
-      nextLeaf->parent->right = newNode;
+      nextLeaf->parent->rchild = newNode;
     }
     newNode->parent = nextLeaf->parent;
   }
   // Find new position for nextLeaf
   bool isPlaced = false;
   for(BinaryNode* curr = nextLeaf; curr != root && !isPlaced; curr = curr->parent){
-    if(curr->parent->left == curr || curr->parent->left == newNode){
-      for(BinaryNode* temp = curr->parent->right; temp != nullptr && !isPlaced; temp = temp->left){
-        if(temp->left == nullptr){
-          temp->left = nextLeaf;
+    if(curr->parent->lchild == curr || curr->parent->lchild == newNode){
+      for(BinaryNode* temp = curr->parent->rchild; temp != nullptr && !isPlaced; temp = temp->lchild){
+        if(temp->lchild == nullptr){
+          temp->lchild = nextLeaf;
           nextLeaf->parent = temp;
           isPlaced = true;
         }
       }
       if(!isPlaced){
-        curr->parent->right = nextLeaf;
+        curr->parent->rchild = nextLeaf;
         nextLeaf->parent = curr->parent;
         isPlaced = true;
       }
     }
   }
   if(!isPlaced){
-    for(BinaryNode* curr = root; curr != nullptr && !isPlaced; curr = curr->left){
-      if(curr->left == nullptr){
-        curr->left = nextLeaf;
+    for(BinaryNode* curr = root; curr != nullptr && !isPlaced; curr = curr->lchild){
+      if(curr->lchild == nullptr){
+        curr->lchild = nextLeaf;
         nextLeaf->parent = curr;
         isPlaced = true;
       }
@@ -67,7 +77,7 @@ void MyTree::Insert(int userInt, string userString){
 
 
 //justin 
-void MyTree::PrintPreOrder(BinaryNode* currPtr, int depth){
+void MyTree::PrintPreOrder(BinaryNode* currPtr, int depth) const{
   if(currPtr != nullptr){
     if(depth != 0){
       cout << endl;
@@ -75,11 +85,11 @@ void MyTree::PrintPreOrder(BinaryNode* currPtr, int depth){
     for(unsigned i = 0; i < depth; ++i){
       cout << "  ";
     }
-    cout << currPtr->dataString;
-    PrintPreOrder(currPtr->left,depth+1);
-    PrintPreOrder(currPtr->right,depth+1);
+    cout << currPtr->myString;
+    PrintPreOrder(currPtr->lchild,depth+1);
+    PrintPreOrder(currPtr->rchild,depth+1);
   }
-}*/
+}
 
 //findMax of Binary Node
 BinaryNode* MyTree::findMax() const{
@@ -112,8 +122,6 @@ void MyTree::makeBST(){
   sort(treeVector.begin(), treeVector.end());
 
   treeToBST(root, treeVector, index);
-
-
 
 }
 
@@ -150,13 +158,13 @@ void MyTree::treeToBST(BinaryNode* curr, vector<BinaryNode*> myVector, int index
   } 
 }
 
-/*
+
 //justin
-void MyTree::PreOrder() const{
+void MyTree::preorder() const{
   if(root != nullptr){
     PrintPreOrder(root,0);
   }
   else{
     cout << "Tree is currently empty." << endl;
   }
-}*/
+}

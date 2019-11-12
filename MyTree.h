@@ -18,6 +18,7 @@ private:
   int myInt;
   BinaryNode *lchild;
   BinaryNode *rchild;
+  BinaryNode *parent;
   friend class MyTree;
 };
 
@@ -48,9 +49,13 @@ public:
   vector<BinaryNode*> createVector(BinaryNode *curr);
   void treeToBST(BinaryNode* curr, vector<BinaryNode*> myVector, int index);
 
+  void deleteTree(BinaryNode* curr);
+
+  void PrintPreOrder(BinaryNode* currPtr, int depth) const;
 
 
 private:
   BinaryNode *root;
+  int height;
 };
 

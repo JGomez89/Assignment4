@@ -29,10 +29,12 @@ void MyTree::deleteTree(BinaryNode* curr){
 //justin
 void MyTree::insert(int userInt, string userString){
   BinaryNode* newNode = new BinaryNode(userString,userInt);
+  bool isPlaced = false;
   if(root == nextLeaf){
     root = newNode;
     root->lchild = nextLeaf;
     nextLeaf->parent = root;
+    isPlaced = true;
   }
   else{
     if(nextLeaf->parent->lchild == nextLeaf){
@@ -44,7 +46,6 @@ void MyTree::insert(int userInt, string userString){
     newNode->parent = nextLeaf->parent;
   }
   // Find new position for nextLeaf
-  bool isPlaced = false;
   for(BinaryNode* curr = nextLeaf; curr != root && !isPlaced; curr = curr->parent){
     if(curr->parent->lchild == curr || curr->parent->lchild == newNode){
       for(BinaryNode* temp = curr->parent->rchild; temp != nullptr && !isPlaced; temp = temp->lchild){
@@ -160,7 +161,7 @@ void MyTree::treeToBST(BinaryNode* curr, vector<BinaryNode*> myVector, int index
 
 //justin
 void MyTree::preorder() const{
-  if(root != nullptr){
+  if(root != nextLeaf){
     PrintPreOrder(root,0);
   }
   else{

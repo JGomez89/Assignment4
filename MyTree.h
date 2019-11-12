@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 using namespace std;
 
@@ -40,7 +41,13 @@ public:
   // That is, move around node values (myString and myInt) to satisfy the BST property.
   void makeBST();
 
-  BinaryNode* findMax(BinaryNode *);
+  BinaryNode* max(BinaryNode *, BinaryNode* largestNode) const;
+
+  //helper functions
+
+  vector<BinaryNode*> createVector(BinaryNode *curr);
+  void treeToBST(BinaryNode* curr, vector<BinaryNode*> myVector, int index);
+
 
 
 private:

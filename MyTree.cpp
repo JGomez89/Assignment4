@@ -12,10 +12,11 @@ MyTree::MyTree(){
 //deconstructor
 MyTree::~MyTree(){
   
-  
+
 
 }
 
+/*
 //justin
 void MyTree::Insert(int userInt, string userString){
   BinaryNode* newNode = new BinaryNode(userInt,userString);
@@ -78,23 +79,23 @@ void MyTree::PrintPreOrder(BinaryNode* currPtr, int depth){
     PrintPreOrder(currPtr->left,depth+1);
     PrintPreOrder(currPtr->right,depth+1);
   }
-}
+}*/
 
 //findMax of Binary Node
 BinaryNode* MyTree::findMax() const{
 
-  return findMax(root, root);
+  return max(root, root);
 }
 
-BinaryNode* MyTree::findMax(BinaryNode* curr, BinaryNode* largestNode){
+BinaryNode* MyTree::max(BinaryNode* curr, BinaryNode* largestNode) const{
   if(curr != nullptr){
 
     if(largestNode->myInt < curr->myInt){
 
       largestNode = curr;
     }
-    findMax(curr->lchild);
-    findMax(curr->rchild);
+    max(curr->lchild, largestNode);
+    max(curr->rchild,largestNode);
   }
 
   return largestNode;
@@ -105,10 +106,10 @@ BinaryNode* MyTree::findMax(BinaryNode* curr, BinaryNode* largestNode){
 //make Binary Search Tree
 void MyTree::makeBST(){
 
-  vector treeVector = createVector(root);
+  vector<BinaryNode*> treeVector = createVector(root);
   int index = 0;
 
-  treeVector.sort();
+  sort(treeVector.begin(), treeVector.end());
 
   treeToBST(root, treeVector, index);
 
@@ -119,15 +120,15 @@ void MyTree::makeBST(){
 //return array head
 vector<BinaryNode*> MyTree::createVector(BinaryNode *curr){
 
-  vector treeVector;
+  vector<BinaryNode*> treeVector;
 
   if(curr != nullptr){
 
-    inorderTraversal(curr->left);
+    createVector(curr->lchild);
 
-    vector.push(curr);
+    treeVector.push_back(curr);
 
-    inorderTraversal(curr->right);
+    createVector(curr->rchild);
 
   }
 
@@ -139,16 +140,17 @@ void MyTree::treeToBST(BinaryNode* curr, vector<BinaryNode*> myVector, int index
 
   if(curr != nullptr){
 
-    inorderTraversal(curr->left);
+    treeToBST(curr->lchild, myVector, index);
 
     curr->myInt = (myVector.at(index))->myInt;
     curr->myString = (myVector.at(index))->myString;
     ++index;
 
-    inorderTraversal(curr->right);
+    treeToBST(curr->rchild, myVector, index);
   } 
 }
 
+/*
 //justin
 void MyTree::PreOrder() const{
   if(root != nullptr){
@@ -157,4 +159,4 @@ void MyTree::PreOrder() const{
   else{
     cout << "Tree is currently empty." << endl;
   }
-}
+}*/

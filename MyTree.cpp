@@ -84,6 +84,7 @@ void MyTree::PrintPreOrder(BinaryNode* currPtr, int depth) const{
       cout << "  ";
     }
     cout << currPtr->myString;
+    cout << " " << currPtr->myInt;
     PrintPreOrder(currPtr->lchild,depth+1);
     PrintPreOrder(currPtr->rchild,depth+1);
   }

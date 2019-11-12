@@ -24,19 +24,19 @@ int main(){
       cout << "Enter new node's string data: ";
       cin >> userString;
 
-      //userTree.Insert(userInt,userString);
+      userTree.insert(userInt,userString);
       cout << "Inserted..." << endl;
     }
 
     else if(userChar == 'p'){
       cout << "PREORDER" << endl;
-      //userTree.PreOrder();
+      userTree.preorder();
     }
 
     else if(userChar == 'f'){
       cout << "FIND MAX" << endl;
 
-      int val = userTree.findMax()->getInt();
+      int val = (userTree.findMax())->getInt();
 
       cout << "Max Value: " << val << endl; 
     }

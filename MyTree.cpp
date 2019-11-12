@@ -1,7 +1,22 @@
 #include <iostream>
+#include <vector>
 #include "MyTree.h"
 using namespace std;
 
+//constructor
+MyTree::MyTree(){
+
+  root = nullptr;
+}
+
+//deconstructor
+MyTree::~MyTree(){
+  
+  
+
+}
+
+//justin
 void MyTree::Insert(int userInt, string userString){
   BinaryNode* newNode = new BinaryNode(userInt,userString);
   if(root == nullptr){
@@ -50,7 +65,7 @@ void MyTree::Insert(int userInt, string userString){
 
 
 
-
+//justin 
 void MyTree::PrintPreOrder(BinaryNode* currPtr, int depth){
   if(currPtr != nullptr){
     if(depth != 0){
@@ -65,7 +80,77 @@ void MyTree::PrintPreOrder(BinaryNode* currPtr, int depth){
   }
 }
 
-void MyTree::PreOrder(){
+//findMax of Binary Node
+BinaryNode* MyTree::findMax() const{
+
+  return findMax(root, root);
+}
+
+BinaryNode* MyTree::findMax(BinaryNode* curr, BinaryNode* largestNode){
+  if(curr != nullptr){
+
+    if(largestNode->myInt < curr->myInt){
+
+      largestNode = curr;
+    }
+    findMax(curr->lchild);
+    findMax(curr->rchild);
+  }
+
+  return largestNode;
+}
+
+
+
+//make Binary Search Tree
+void MyTree::makeBST(){
+
+  vector treeVector = createVector(root);
+  int index = 0;
+
+  treeVector.sort();
+
+  treeToBST(root, treeVector, index);
+
+
+
+}
+
+//return array head
+vector<BinaryNode*> MyTree::createVector(BinaryNode *curr){
+
+  vector treeVector;
+
+  if(curr != nullptr){
+
+    inorderTraversal(curr->left);
+
+    vector.push(curr);
+
+    inorderTraversal(curr->right);
+
+  }
+
+  return treeVector;
+
+}
+
+void MyTree::treeToBST(BinaryNode* curr, vector<BinaryNode*> myVector, int index){
+
+  if(curr != nullptr){
+
+    inorderTraversal(curr->left);
+
+    curr->myInt = (myVector.at(index))->myInt;
+    curr->myString = (myVector.at(index))->myString;
+    ++index;
+
+    inorderTraversal(curr->right);
+  } 
+}
+
+//justin
+void MyTree::PreOrder() const{
   if(root != nullptr){
     PrintPreOrder(root,0);
   }

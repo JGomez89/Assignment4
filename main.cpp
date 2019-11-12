@@ -35,7 +35,11 @@ int main(){
     }
 
     else if(userChar == 'f'){
-      cout << "FIXME" << endl;
+      cout << "FIND MAX" << endl;
+
+      int val = userTree.findMax().getInt();
+
+      cout << "Max Value: " << val << endl; 
     }
     else if(userChar == 'c'){
       cout << "FIXME" << endl;

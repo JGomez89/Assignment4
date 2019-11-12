@@ -1,76 +1,49 @@
-#ifndef __MYTREE_H__
-#define __MYTREE_H__
+#include <cstdlib>
 #include <iostream>
-#include "BinaryNode.h"
+#include <cmath>
+
 using namespace std;
 
-class MyTree{
-private:
-  BinaryNode DummyLeaf;
-  BinaryNode *root;
-  BinaryNode *nextLeaf;
-  int height; // Including root
-  void PrintPreOrder(BinaryNode*,int);
+class MyTree;
 
+class BinaryNode {
 public:
-  MyTree(){
-    height = 0;
-    root = nullptr;
-    nextLeaf = &DummyLeaf;
-  };
-  void Insert(int,string);
-  void PreOrder();
-  // BinaryNode FindMax();
-  // BinaryNode MakeBST();
+  BinaryNode(string s, int m):myString(s),myInt(m){};
+  ~BinaryNode() {};
+  int getInt() const {return myInt;};
+  string getString() const {return myString;};
+private:
+  string myString;
+  int myInt;
+  BinaryNode *lchild;
+  BinaryNode *rchild;
+  friend class MyTree;
 };
 
 
+class MyTree {
+public:
+  MyTree();
+  ~MyTree();
 
-//   // If empty
-//   if(root == nullptr){
-//     root = newNode;
-//     root->left = nextLeaf;
-//     nextLeaf->parent = root;
-//   }
-//   // If not empty
-//   else{
-//     // If nextLeaf BinaryNode is a left child, then parent's right child becomes nextLeaf BinaryNode
-//     if(nextLeaf->parent->left == nextLeaf){
-//       nextLeaf->parent->left = newNode;
-//       newNode->parent = nextLeaf->parent;
-//       // Update nextLeaf BinaryNode's location in tree
-//       nextLeaf->parent->right = nextLeaf;
-//     }
-//     // If nextLeaf BinaryNode is a right child
-//     else{
-//       bool isPlaced = false;
-//       newNode->parent = nextLeaf->parent;
-//       nextLeaf->parent->right = newNode;
-//       // Update nextLeaf BinaryNode's location in tree
-//       // Climb tree until curr BinaryNode is a left child (or hit the root)
-//       for(BinaryNode* curr = nextLeaf; (curr != root) && !isPlaced; curr = curr->parent){
-//         // If curr is a left child, then parent's right child's left child becomes nextLeaf BinaryNode
-//         if(curr->parent->left == curr){
-//           nextLeaf->parent = curr->parent->right;
-//           nextLeaf->parent->left = nextLeaf;
-//           isPlaced = true;
-//         }
-//       }
-//       // If curr BinaryNode reaches root (if nextLeaf BinaryNode was at the very right of tree)
-//       if(!isPlaced){
-//         // Travel down very left of tree until a leaf BinaryNode is reached
-//         for(BinaryNode* curr = root->left; curr != nullptr; curr = curr->left){
-//           if(curr->left == nullptr){
-//             nextLeaf->parent = curr;
-//             nextLeaf->parent->left = nextLeaf;
-//           }
-//         }
-//       }
-//     }
-//   }
-//   ++height;
-// }
+  // Insert new node into first available position (to keep the tree almost complete).
+  void insert (int x ,string s);
+
+  //Output all strings in pre-order 
+  //all the strings will be print in one line separated by spaces
+  void preorder() const;
+
+  //Returns a pointer to the node with maximum myInt
+  BinaryNode *findMax() const;
+
+  // Converts the binary tree into a binary search tree (BST) with respect to myInt. 
+  // That is, move around node values (myString and myInt) to satisfy the BST property.
+  void makeBST();
+
+  BinaryNode* findMax(BinaryNode *);
 
 
+private:
+  BinaryNode *root;
+};
 
-#endif

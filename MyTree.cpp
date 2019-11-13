@@ -74,16 +74,6 @@ void MyTree::insert(int userInt, string userString){
 }
 
 //justin
-void MyTree::preorder() const{
-  if(root != nextLeaf){
-    PrintPreOrder(root);
-  }
-  else{
-    cout << "Tree is currently empty." << endl;
-  }
-}
-
-//justin
 void MyTree::PrintPreOrder(BinaryNode* currPtr) const{
   if(currPtr != nullptr && currPtr != nextLeaf){
     // if(depth != 0){
@@ -107,7 +97,7 @@ void MyTree::PrintPreOrder(BinaryNode* currPtr) const{
 
 void MyTree::preorder() const{
   if(root != nextLeaf){
-    PrintPreOrder(root,0);
+    PrintPreOrder(root);
   }
   else{
     cout << "Tree is currently empty." << endl;

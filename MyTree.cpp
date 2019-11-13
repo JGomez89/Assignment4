@@ -74,30 +74,30 @@ void MyTree::insert(int userInt, string userString){
 }
 
 //justin
-void MyTree::PrintPreOrder(BinaryNode* currPtr) const{
+void MyTree::PrintPreOrder(BinaryNode* currPtr,int depth) const{
   if(currPtr != nullptr && currPtr != nextLeaf){
-    // if(depth != 0){
-    //   cout << endl;
-    // }
-    // for(unsigned i = 0; i < depth; ++i){
-    //   cout << "  ";
-    // }
+    if(depth != 0){
+      cout << endl;
+    }
+    for(unsigned i = 0; i < depth; ++i){
+      cout << "  ";
+    }
     if(currPtr != root){
       cout << " " << currPtr->myString;
     }
     else{
       cout << currPtr->myString;
     }
-    // PrintPreOrder(currPtr->lchild,depth+1);
-    // PrintPreOrder(currPtr->rchild,depth+1);
-    PrintPreOrder(currPtr->lchild);
-    PrintPreOrder(currPtr->rchild);
+    PrintPreOrder(currPtr->lchild,depth+1);
+    PrintPreOrder(currPtr->rchild,depth+1);
+    // PrintPreOrder(currPtr->lchild);
+    // PrintPreOrder(currPtr->rchild);
   }
 }
 
 void MyTree::preorder() const{
   if(root != nextLeaf){
-    PrintPreOrder(root);
+    PrintPreOrder(root,0);
   }
   else{
     cout << "Tree is currently empty." << endl;
@@ -130,7 +130,7 @@ void MyTree::makeBST(){
   vector<nodePair> treeVector;
   createVector(root, treeVector);
 
-  int index = 0;
+  int index = treeVector.size()/2;
 
   sort(treeVector.begin(), treeVector.end());
 
@@ -146,9 +146,20 @@ void MyTree::makeBST(){
   }
 
 
-
   treeToBST(root, treeVector, index);
 
+
+  /*
+  //
+  BinaryNode *temp = root;
+  while(temp->rchild != nullptr){
+
+    temp = temp->rchild;
+  }
+
+  temp->myInt = treeVector.at(treeVector.size()-1).first;
+  temp->myString = treeVector.at(treeVector.size()-1).second;*/
+  
 }
 
 void MyTree::createVector(BinaryNode *curr, vector<nodePair> &treeVector){
@@ -173,17 +184,16 @@ void MyTree::treeToBST(BinaryNode* curr, vector<nodePair> myVector, int index){
 
   if(curr != nullptr && index < myVector.size()){
 
-    treeToBST(curr->lchild, myVector, index + 1);
+  
+    treeToBST(curr->lchild, myVector, index - 1);
 
-      
-      curr->myInt = myVector.at(index).first;
-      curr->myString = myVector.at(index).second;
-    
+    curr->myInt = myVector.at(index).first;
+    curr->myString = myVector.at(index).second;
 
-    treeToBST(curr->rchild, myVector, index + 2);
+    index++;
 
+    treeToBST(curr->rchild, myVector, index + 1);
   }
-
 }
 
 

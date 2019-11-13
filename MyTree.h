@@ -59,6 +59,6 @@ private:
 
   void deleteTree(BinaryNode* curr);
 
-  void PrintPreOrder(BinaryNode* currPtr) const;
+  void PrintPreOrder(BinaryNode* currPtr,int) const;
 
 };

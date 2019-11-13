@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 #include "MyTree.h"
 using namespace std;
 
@@ -73,23 +74,38 @@ void MyTree::insert(int userInt, string userString){
   }
 }
 
-
-
 //justin
-void MyTree::PrintPreOrder(BinaryNode* currPtr, int depth) const{
-  if(currPtr != nullptr){
-    if(depth != 0){
-      cout << endl;
-    }
-    for(unsigned i = 0; i < depth; ++i){
-      cout << "  ";
-    }
-    cout << currPtr->myString;
-    cout << " " << currPtr->myInt;
-    PrintPreOrder(currPtr->lchild,depth+1);
-    PrintPreOrder(currPtr->rchild,depth+1);
+void MyTree::preorder() const{
+  if(root != nextLeaf){
+    PrintPreOrder(root);
+  }
+  else{
+    cout << "Tree is currently empty." << endl;
   }
 }
+
+//justin
+void MyTree::PrintPreOrder(BinaryNode* currPtr) const{
+  if(currPtr != nullptr && currPtr != nextLeaf){
+    // if(depth != 0){
+    //   cout << endl;
+    // }
+    // for(unsigned i = 0; i < depth; ++i){
+    //   cout << "  ";
+    // }
+    if(currPtr != root){
+      cout << " " << currPtr->myString;
+    }
+    else{
+      cout << currPtr->myString;
+    }
+    // PrintPreOrder(currPtr->lchild,depth+1);
+    // PrintPreOrder(currPtr->rchild,depth+1);
+    PrintPreOrder(currPtr->lchild);
+    PrintPreOrder(currPtr->rchild);
+  }
+}
+
 
 //findMax of Binary Node
 BinaryNode* MyTree::findMax() const{
@@ -111,8 +127,6 @@ BinaryNode* MyTree::max(BinaryNode* curr, BinaryNode* largestNode) const{
   return largestNode;
 }
 
-
-
 //make Binary Search Tree
 void MyTree::makeBST(){
 
@@ -130,7 +144,7 @@ vector<BinaryNode*> MyTree::createVector(BinaryNode *curr){
 
   vector<BinaryNode*> treeVector;
 
-  if(curr != nullptr){
+  if(curr != nullptr && curr != nextLeaf){
 
     createVector(curr->lchild);
 
@@ -155,16 +169,5 @@ void MyTree::treeToBST(BinaryNode* curr, vector<BinaryNode*> myVector, int index
     ++index;
 
     treeToBST(curr->rchild, myVector, index);
-  }
-}
-
-
-//justin
-void MyTree::preorder() const{
-  if(root != nextLeaf){
-    PrintPreOrder(root,0);
-  }
-  else{
-    cout << "Tree is currently empty." << endl;
   }
 }

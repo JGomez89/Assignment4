@@ -31,6 +31,7 @@ int main(){
     else if(userChar == 'p'){
       cout << "PREORDER" << endl;
       userTree.preorder();
+      cout << endl;
     }
 
     else if(userChar == 'f'){
@@ -38,7 +39,7 @@ int main(){
 
       int val = (userTree.findMax())->getInt();
 
-      cout << "Max Value: " << val << endl; 
+      cout << "Max Value: " << val << endl;
     }
     else if(userChar == 'c'){
       cout << "FIXME" << endl;

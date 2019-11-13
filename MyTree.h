@@ -43,19 +43,19 @@ public:
   // That is, move around node values (myString and myInt) to satisfy the BST property.
   void makeBST();
 
-  BinaryNode* max(BinaryNode *, BinaryNode* largestNode) const;
+private:
+  BinaryNode *root;
+  BinaryNode *nextLeaf;
 
   //helper functions
+  BinaryNode* max(BinaryNode *curr, BinaryNode* largestNode) const;
 
   vector<BinaryNode*> createVector(BinaryNode *curr);
+
   void treeToBST(BinaryNode* curr, vector<BinaryNode*> myVector, int index);
 
   void deleteTree(BinaryNode* curr);
 
-  void PrintPreOrder(BinaryNode* currPtr, int depth) const;
+  void PrintPreOrder(BinaryNode* currPtr) const;
 
-
-private:
-  BinaryNode *root;
-  BinaryNode *nextLeaf;
 };

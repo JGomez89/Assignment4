@@ -55,7 +55,7 @@ private:
 
   void createVector(BinaryNode *curr, vector<nodePair>& myVector);
 
-  void treeToBST(BinaryNode* curr, vector<nodePair> myVector, int index);
+  void treeToBST(BinaryNode* curr, vector<nodePair> myVector, int,int);
 
   void deleteTree(BinaryNode* curr);
 

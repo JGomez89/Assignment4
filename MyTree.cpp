@@ -74,16 +74,6 @@ void MyTree::insert(int userInt, string userString){
 }
 
 //justin
-void MyTree::preorder() const{
-  if(root != nextLeaf){
-    PrintPreOrder(root);
-  }
-  else{
-    cout << "Tree is currently empty." << endl;
-  }
-}
-
-//justin
 void MyTree::PrintPreOrder(BinaryNode* currPtr) const{
   if(currPtr != nullptr && currPtr != nextLeaf){
     // if(depth != 0){
@@ -107,7 +97,7 @@ void MyTree::PrintPreOrder(BinaryNode* currPtr) const{
 
 void MyTree::preorder() const{
   if(root != nextLeaf){
-    PrintPreOrder(root,0);
+    PrintPreOrder(root);
   }
   else{
     cout << "Tree is currently empty." << endl;
@@ -155,8 +145,6 @@ void MyTree::makeBST(){
 
   }
 
-
-
   treeToBST(root, treeVector, index);
 
 }
@@ -179,21 +167,28 @@ void MyTree::createVector(BinaryNode *curr, vector<nodePair> &treeVector){
 
 }
 
-void MyTree::treeToBST(BinaryNode* curr, vector<nodePair> myVector, int index){
+void MyTree::treeToBST(BinaryNode* curr, vector<nodePair> myVector, int start, int end){
 
-  if(curr != nullptr && index < myVector.size()){
+  int mid = 0;
+  if(curr != nullptr && curr != nextLeaf && index < myVector.size()){
+    //
+    // treeToBST(curr->lchild, myVector, index + 1);
+    //
+    //
+    //   curr->myInt = myVector.at(index).first;
+    //   curr->myString = myVector.at(index).second;
+    //
+    //
+    // treeToBST(curr->rchild, myVector, index + 2);
 
-    treeToBST(curr->lchild, myVector, index + 1);
+    if(start < end){
+        mid = (end - start)/2 + start;
+        treetoBST
 
-      
-      curr->myInt = myVector.at(index).first;
-      curr->myString = myVector.at(index).second;
-    
+    }
+    else{
 
-    treeToBST(curr->rchild, myVector, index + 2);
-
+    }
   }
 
 }
-
-

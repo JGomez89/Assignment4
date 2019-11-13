@@ -41,7 +41,9 @@ int main(){
       cout << "Max Value: " << val << endl; 
     }
     else if(userChar == 'c'){
-      cout << "FIXME" << endl;
+      cout << "BST" << endl;
+
+      userTree.makeBST();
     }
     else if(userChar != 'q'){
       cout << "Invald command." << endl;

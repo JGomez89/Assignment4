@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <vector>
+#include <utility>
 #include "MyTree.h"
 using namespace std;
 
@@ -25,8 +27,6 @@ void MyTree::deleteTree(BinaryNode* curr){
 
 }
 
-
-//justin
 void MyTree::insert(int userInt, string userString){
   BinaryNode* newNode = new BinaryNode(userString,userInt);
   bool isPlaced = false;
@@ -75,7 +75,6 @@ void MyTree::insert(int userInt, string userString){
 
 
 
-//justin
 void MyTree::PrintPreOrder(BinaryNode* currPtr, int depth) const{
   if(currPtr != nullptr){
     if(depth != 0){
@@ -91,7 +90,15 @@ void MyTree::PrintPreOrder(BinaryNode* currPtr, int depth) const{
   }
 }
 
-//findMax of Binary Node
+void MyTree::preorder() const{
+  if(root != nextLeaf){
+    PrintPreOrder(root,0);
+  }
+  else{
+    cout << "Tree is currently empty." << endl;
+  }
+}
+
 BinaryNode* MyTree::findMax() const{
 
   return max(root, root);
@@ -112,59 +119,66 @@ BinaryNode* MyTree::max(BinaryNode* curr, BinaryNode* largestNode) const{
 }
 
 
-
-//make Binary Search Tree
+// Not Done
 void MyTree::makeBST(){
 
-  vector<BinaryNode*> treeVector = createVector(root);
+  vector<nodePair> treeVector;
+  createVector(root, treeVector);
+
   int index = 0;
 
   sort(treeVector.begin(), treeVector.end());
+
+  cout << "VEC SIZE: " << treeVector.size() << endl;
+
+  for(unsigned i = 0; i < treeVector.size(); ++i){
+
+    cout << "FIRST: ";
+    cout << treeVector.at(i).first;
+    cout << ", SECOND: ";
+    cout << treeVector.at(i).second << endl;
+
+  }
+
+
 
   treeToBST(root, treeVector, index);
 
 }
 
-//return array head
-vector<BinaryNode*> MyTree::createVector(BinaryNode *curr){
+void MyTree::createVector(BinaryNode *curr, vector<nodePair> &treeVector){
 
-  vector<BinaryNode*> treeVector;
+  nodePair x;
 
-  if(curr != nullptr){
+  if(curr != nullptr && curr != nextLeaf){
 
-    createVector(curr->lchild);
+    createVector(curr->lchild, treeVector);
 
-    treeVector.push_back(curr);
+    x.first = curr->myInt;
+    x.second = curr->myString;
+    treeVector.push_back(x);
 
-    createVector(curr->rchild);
+    createVector(curr->rchild, treeVector);
 
   }
-
-  return treeVector;
 
 }
 
-void MyTree::treeToBST(BinaryNode* curr, vector<BinaryNode*> myVector, int index){
+void MyTree::treeToBST(BinaryNode* curr, vector<nodePair> myVector, int index){
 
-  if(curr != nullptr){
+  if(curr != nullptr && index < myVector.size()){
 
-    treeToBST(curr->lchild, myVector, index);
+    treeToBST(curr->lchild, myVector, index + 1);
 
-    curr->myInt = (myVector.at(index))->myInt;
-    curr->myString = (myVector.at(index))->myString;
-    ++index;
+      
+      curr->myInt = myVector.at(index).first;
+      curr->myString = myVector.at(index).second;
+    
 
-    treeToBST(curr->rchild, myVector, index);
+    treeToBST(curr->rchild, myVector, index + 2);
+
   }
+
 }
 
 
-//justin
-void MyTree::preorder() const{
-  if(root != nextLeaf){
-    PrintPreOrder(root,0);
-  }
-  else{
-    cout << "Tree is currently empty." << endl;
-  }
-}

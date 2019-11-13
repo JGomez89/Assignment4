@@ -2,8 +2,11 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <utility>
 
 using namespace std;
+
+typedef pair<int,string> nodePair;
 
 class MyTree;
 
@@ -50,9 +53,9 @@ private:
   //helper functions
   BinaryNode* max(BinaryNode *curr, BinaryNode* largestNode) const;
 
-  vector<BinaryNode*> createVector(BinaryNode *curr);
+  void createVector(BinaryNode *curr, vector<nodePair>& myVector);
 
-  void treeToBST(BinaryNode* curr, vector<BinaryNode*> myVector, int index);
+  void treeToBST(BinaryNode* curr, vector<nodePair> myVector, int index);
 
   void deleteTree(BinaryNode* curr);
 
